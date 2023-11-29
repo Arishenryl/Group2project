@@ -1,4 +1,4 @@
 library(tidyverse)
 library(ggplot2)
 
-ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) + geom_point()
+ggplot(mtcars, aes(x=as.factor(cyl), y=mpg)) + geom_boxplot( color= "red")
