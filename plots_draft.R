@@ -8,8 +8,10 @@ ggplot(group2dataset, aes(x = Variant, y = Position, color = Instrument, size = 
     y = "Spike Gene Position",
     color = "Instrument",
     linewidth = "Error Counts"  
+  ) + theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
   ) +
-  theme_minimal() +
   facet_wrap(~Instrument)
 
 
@@ -22,6 +24,9 @@ ggplot(group2dataset, aes(x = Variant, y = Position, color = Instrument, size = 
     y = "Spike Gene Position",
     color = "Instrument",
     size = "Error Counts"
+  ) + theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
   ) +
-  theme_minimal() +
   facet_wrap(~Instrument)
+
