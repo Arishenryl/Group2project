@@ -3,4 +3,6 @@ library(ggplot2)
 group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)
 glimpse(group2dataset) 
 view(group2dataset)
+
+#Creates a boxplot of he distribution of error counts across different instruments/variants in the dataset - Alina & Sidorela
 ggplot(group2dataset, aes(x=Instrument, y=Error_counts, color=Variant)) + geom_boxplot(outlier.shape=NA) + geom_jitter(shape=20)
