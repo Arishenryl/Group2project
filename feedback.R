@@ -42,7 +42,8 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) 
 #statisitcal analyses 
 
 #T-test
-t.test(data=group2dataset, Error_counts ~ Instrument)
+g2t_testresult = t.test(data=group2dataset, Error_counts ~ Instrument)
+summary(g2t_testresult)
 
 #ANOVA
 anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)
