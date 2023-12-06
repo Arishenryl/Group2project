@@ -35,10 +35,11 @@ summary(anovag2_result)
 
 #Boxplot
 our_g2colors <- c("#dd1c77", "#3182bd")
+
 ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
   geom_boxplot(outlier.shape = NA, fill = "white") +
   geom_jitter(shape = 20) +
-  scale_color_manual(values = our_g2colors) +  # Corrected color vector name
+  scale_color_manual(values = our_g2colors) +
   labs(x = "Instrument", y = "Error Counts", title = "Error Counts in Spike gene of SARS-CoV-2") +
   facet_wrap(~Variant, ncol = 2) +
   theme(
@@ -48,8 +49,9 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
     strip.text.x = element_text(face = "bold", size = 8, color = "black"),
     legend.title = element_text(face = "bold", size = 8, color = "purple"),
     legend.text = element_text(face = "bold", size = 8),
-    legend.position = "right"
-  ) 
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5)  
+  )
 
 #T-test plot
 ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
@@ -65,25 +67,21 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) 
     axis.title = element_text(color = "purple", face = "bold"),  
     legend.text = element_text(color = "purple", face = "bold"),  
     legend.title = element_text(color = "purple", face = "bold"),
-    plot.title = element_text(face = "bold", color = "purple")  # Adjust the title appearance here
+    plot.title = element_text(hjust = 0.5, face = "bold", color = "purple")  
   ) +
   labs(title = "Mean Differences Between Sequencing Techniques")
 
 #ANOVA plot
-meang2_data <- group2dataset %>%
-    group_by(Position, Variant) %>%
-    summarise(mean_Error_counts = mean(Error_counts))
-
 ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
     geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
-     annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +  
+    annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
     labs(title = "Distribution of Mean Error Counts Along SARS-CoV-2 Spike Gene",
          x = "Position",
          y = "Mean Error Counts") +
     scale_fill_manual(values = setNames(our_g2colors, unique(meang2_data$Variant))) + 
     theme_minimal() +
     theme(
-        plot.title = element_text(color = "purple", face = "bold"),  
+        plot.title = element_text(hjust = 0.5, color = "purple", face = "bold"), 
         legend.position = "bottom",
         axis.text = element_text(color = "purple", face = "bold"),  
         axis.title = element_text(color = "purple", face = "bold"), 
