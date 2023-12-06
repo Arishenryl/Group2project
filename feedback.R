@@ -53,20 +53,21 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
 
 #T-test plot
 ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
-    geom_boxplot(outlier.shape = NA) +
-    geom_jitter(shape = 21) +
-    theme_bw() +
-    geom_signif(comparisons = list(c("Illumina", "PacBio")), map_signif_level = TRUE, 
-                test = "wilcox.test", test.args = list(exact = FALSE, correct = TRUE)) +
-    scale_fill_manual(values = setNames(our_g2colors, unique(group2dataset$Instrument))) +
-    annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
-    theme(
-        axis.text = element_text(color = "purple", face = "bold"),  
-        axis.title = element_text(color = "purple", face = "bold"),  
-        legend.text = element_text(color = "purple", face = "bold"),  
-        legend.title = element_text(color = "purple", face = "bold")  
-    ) +
-    labs(title = "Mean Differences Between Sequencing Techniques", title.theme = element_text(face = "bold", color = "purple"))
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(shape = 21) +
+  theme_bw() +
+  geom_signif(comparisons = list(c("Illumina", "PacBio")), map_signif_level = TRUE, 
+              test = "wilcox.test", test.args = list(exact = FALSE, correct = TRUE)) +
+  scale_fill_manual(values = setNames(our_g2colors, unique(group2dataset$Instrument))) +
+  annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
+  theme(
+    axis.text = element_text(color = "purple", face = "bold"),  
+    axis.title = element_text(color = "purple", face = "bold"),  
+    legend.text = element_text(color = "purple", face = "bold"),  
+    legend.title = element_text(color = "purple", face = "bold"),
+    plot.title = element_text(face = "bold", color = "purple")  # Adjust the title appearance here
+  ) +
+  labs(title = "Mean Differences Between Sequencing Techniques")
 
 #ANOVA plot
 meang2_data <- group2dataset %>%
