@@ -7,6 +7,7 @@
 # Load required libraries
 library(tidyverse)
 library(ggplot2)
+library(stats)
 
 # Read the dataset from a tsv file
 group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)
@@ -14,3 +15,13 @@ group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)
 # Display a summary & View the dataset interactively
 glimpse(group2dataset) 
 view(group2dataset)
+
+#plots
+
+#statisitcal analysis 
+
+#T-test
+
+#ANOVA
+anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)
+summary(anovag2_result)
