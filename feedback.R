@@ -21,6 +21,9 @@ view(group2dataset)
 
 #plots
 #1st hypothesis
+#boxplot
+> our_colors=c("#dd1c77", "#3182bd")
+> ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) + geom_boxplot(outlier.shape = NA, fill="white") + geom_jitter(shape = 20) + scale_color_manual(values=our_colors) + labs(x="Instrument", y="Error Counts", title="Error Counts in Spike gene of SARS-CoV-2") + facet_wrap(~Variant, ncol = 2) + theme(title = element_text(face="bold", size=12, color="purple"), axis.title = element_text(face="bold", size=10, color="purple"), axis.text = element_text(face="bold", size=9, color="darkgray"), strip.text.x = element_text(face="bold", size=8, color="black"), legend.title=element_text(face="bold", size=8, color="purple"), legend.text=element_text(face="bold", size=8), legend.position="right" )
 
 #2nd hypothesis 
 
