@@ -17,6 +17,14 @@ glimpse(group2dataset)
 view(group2dataset)
 
 #plots
+# Possible 3rd hypothesis- Alina & Sidorela
+ggplot(group2dataset, aes(x = Variant, y = Error_counts)) +
+    
+    # Add a boxplot to visualize the distribution of 'Error_counts' for each 'Instrument'
+    geom_boxplot(outlier.shape = NA) +
+    
+    # Add jittered points for each data point to show individual observations
+    geom_jitter(shape = 20)
 
 #statisitcal analysis 
 
