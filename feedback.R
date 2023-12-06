@@ -21,6 +21,16 @@ group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)
 glimpse(group2dataset) 
 view(group2dataset)
 
+#statisitcal analyses 
+
+#T-test
+g2.t_testresult = t.test(data=group2dataset, Error_counts ~ Instrument)
+summary(g2.t_testresult)
+
+#ANOVA
+anovag2_result = aov(Error_counts ~ Position * Variant, data = group2dataset)
+summary(anovag2_result)
+
 #Figures
 
 #Boxplot
@@ -80,15 +90,16 @@ ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Varia
         legend.title = element_text(color = "purple", face = "bold")  
     )
 
-#statisitcal analyses 
 
-#T-test
-g2.t_testresult = t.test(data=group2dataset, Error_counts ~ Instrument)
-summary(g2.t_testresult)
 
-#ANOVA
-anovag2_result = aov(Error_counts ~ Position * Variant, data = group2dataset)
-summary(anovag2_result)
+
+
+
+
+
+
+
+
 
 
 
