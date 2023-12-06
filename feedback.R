@@ -51,11 +51,12 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) 
   scale_fill_manual(values = setNames(our_g2colors, unique(group2dataset$Instrument))) +
   annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
   theme(
-    axis.text = element_text(color = "purple"),
-    axis.title = element_text(color = "purple"),
-    legend.text = element_text(color = "purple"),
-    legend.title = element_text(color = "purple")
-  )
+    axis.text = element_text(color = "purple", face = "bold"),  
+    axis.title = element_text(color = "purple", face = "bold"),  
+    legend.text = element_text(color = "purple", face = "bold"),  
+    legend.title = element_text(color = "purple", face = "bold")  
+  ) +
+  labs(title = "Error Counts in Spike gene of SARS-CoV-2", title.theme = element_text(face = "bold", color = "purple"))
 
 #ANOVA plot
 meang2_data <- group2dataset %>%
@@ -64,7 +65,7 @@ meang2_data <- group2dataset %>%
 
 ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
     geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
-    geom_text(aes(x = Inf, y = -Inf, label = "Liann"), color = "blue", vjust = 0, hjust = 1, size = 5, alpha = 0.3) +  
+     annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +  
     labs(title = "Distribution of Mean Error Counts Along SARS-CoV-2 Spike Gene",
          x = "Position",
          y = "Mean Error Counts") +
