@@ -46,7 +46,7 @@ g2.t_testresult = t.test(data=group2dataset, Error_counts ~ Instrument)
 summary(g2.t_testresult)
 
 #ANOVA
-anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)
+anovag2_result = aov(Error_counts ~ Position * Variant, data = group2dataset)
 summary(anovag2_result)
 
 
