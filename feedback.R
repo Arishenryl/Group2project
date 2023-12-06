@@ -24,18 +24,38 @@ view(group2dataset)
 #Figures
 
 #Boxplot
-ourg2_colors=c("#dd1c77", "#3182bd")
-ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) + geom_boxplot(outlier.shape = NA, fill="white") + geom_jitter(shape = 20) + scale_color_manual(values=our_colors) + labs(x="Instrument", y="Error Counts", title="Error Counts in Spike gene of SARS-CoV-2") + facet_wrap(~Variant, ncol = 2) + theme(title = element_text(face="bold", size=12, color="purple"), axis.title = element_text(face="bold", size=10, color="purple"), axis.text = element_text(face="bold", size=9, color="darkgray"), strip.text.x = element_text(face="bold", size=8, color="black"), legend.title=element_text(face="bold", size=8, color="purple"), legend.text=element_text(face="bold", size=8), legend.position="right" )
+our_g2colors <- c("#dd1c77", "#3182bd")
+ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
+  geom_boxplot(outlier.shape = NA, fill = "white") +
+  geom_jitter(shape = 20) +
+  scale_color_manual(values = our_g2colors) +  # Corrected color vector name
+  labs(x = "Instrument", y = "Error Counts", title = "Error Counts in Spike gene of SARS-CoV-2") +
+  facet_wrap(~Variant, ncol = 2) +
+  theme(
+    title = element_text(face = "bold", size = 12, color = "purple"),
+    axis.title = element_text(face = "bold", size = 10, color = "purple"),
+    axis.text = element_text(face = "bold", size = 9, color = "darkgray"),
+    strip.text.x = element_text(face = "bold", size = 8, color = "black"),
+    legend.title = element_text(face = "bold", size = 8, color = "purple"),
+    legend.text = element_text(face = "bold", size = 8),
+    legend.position = "right"
+  ) 
 
 #T-test plot
 ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
-    geom_boxplot(outlier.shape = NA) +
-    geom_jitter(shape = 21) +
-    theme_bw() +
-    geom_signif(comparisons = list(c("Illumina", "PacBio")), map_signif_level = TRUE, 
-                test = "wilcox.test", test.args = list(exact = FALSE, correct = TRUE)) +
-    scale_fill_manual(values = c("Illumina" = "pink", "PacBio" = "violet")) +
-    annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5)
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(shape = 21) +
+  theme_bw() +
+  geom_signif(comparisons = list(c("Illumina", "PacBio")), map_signif_level = TRUE, 
+              test = "wilcox.test", test.args = list(exact = FALSE, correct = TRUE)) +
+  scale_fill_manual(values = setNames(our_g2colors, unique(group2dataset$Instrument))) +
+  annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
+  theme(
+    axis.text = element_text(color = "purple"),
+    axis.title = element_text(color = "purple"),
+    legend.text = element_text(color = "purple"),
+    legend.title = element_text(color = "purple")
+  )
 
 #ANOVA plot
 meang2_data <- group2dataset %>%
@@ -44,13 +64,20 @@ meang2_data <- group2dataset %>%
 
 ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
     geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
-    geom_text(aes(x = Inf, y = -Inf, label = "Liann"), color = "blue", vjust = 0, hjust = 1, size = 5, alpha = 0.3) +  # Watermark with increased transparency
+    geom_text(aes(x = Inf, y = -Inf, label = "Liann"), color = "blue", vjust = 0, hjust = 1, size = 5, alpha = 0.3) +  
     labs(title = "Distribution of Mean Error Counts Along SARS-CoV-2 Spike Gene",
          x = "Position",
          y = "Mean Error Counts") +
-    scale_fill_manual(values = c("Alpha" = "violet", "Omicron" = "pink")) +  # Change fill colors
+    scale_fill_manual(values = setNames(our_g2colors, unique(meang2_data$Variant))) + 
     theme_minimal() +
-    theme(legend.position = "bottom")
+    theme(
+        plot.title = element_text(color = "purple", face = "bold"),  
+        legend.position = "bottom",
+        axis.text = element_text(color = "purple", face = "bold"),  
+        axis.title = element_text(color = "purple", face = "bold"), 
+        legend.text = element_text(color = "purple", face = "bold"),  
+        legend.title = element_text(color = "purple", face = "bold")  
+    )
 
 #statisitcal analyses 
 
