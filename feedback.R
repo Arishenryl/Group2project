@@ -6,6 +6,7 @@
 
 # Load required libraries
 install.packages("ggpubr")
+library(dplyr)
 library(ggplot2)
 library(ggpubr)
 library(ggsignif)
@@ -37,8 +38,19 @@ ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) 
     annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5)
 
 #ANOVA plot
+meang2_data <- group2dataset %>%
+    group_by(Position, Variant) %>%
+    summarise(mean_Error_counts = mean(Error_counts))
 
-
+ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
+    geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
+    geom_text(aes(x = Inf, y = -Inf, label = "Liann"), color = "blue", vjust = 0, hjust = 1, size = 5, alpha = 0.3) +  # Watermark with increased transparency
+    labs(title = "Distribution of Mean Error Counts Along SARS-CoV-2 Spike Gene",
+         x = "Position",
+         y = "Mean Error Counts") +
+    scale_fill_manual(values = c("Alpha" = "violet", "Omicron" = "pink")) +  # Change fill colors
+    theme_minimal() +
+    theme(legend.position = "bottom")
 
 #statisitcal analyses 
 
