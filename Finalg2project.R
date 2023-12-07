@@ -31,6 +31,11 @@ summary(g2.t_testresult)
 anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)
 summary(anovag2_result)
 
+# Calculate mean data
+meang2_data <- group2dataset %>%
+  group_by(Position, Variant) %>%
+  summarise(mean_Error_counts = mean(Error_counts))
+
 # Figures
 
 # Boxplot
