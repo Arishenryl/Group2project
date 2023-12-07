@@ -5,43 +5,43 @@
 # Version: 1
 
 # Load required libraries
-install.packages("ggpubr")
-library(dplyr)
-library(ggplot2)
-library(ggpubr)
-library(ggsignif)
-library(rstatix)
-library(stats)
-library(tidyverse)
+install.packages("ggpubr")  # Install the ggpubr package
+library(dplyr)               # Load the dplyr library for data manipulation
+library(ggplot2)             # Load the ggplot2 library for data visualization
+library(ggpubr)              # Load the ggpubr library for enhancing plots
+library(ggsignif)            # Load the ggsignif library for adding annotations to plots
+library(rstatix)             # Load the rstatix library for statistical functions in plots
+library(stats)               # Load the stats library for basic statistical functions
+library(tidyverse)           # Load the tidyverse library for data manipulation and visualization
 
 # Read the dataset from a tsv file
-group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)
+group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)  # group2dataset stores the dataset read for later use
 
 # Display a summary & View the dataset interactively
-glimpse(group2dataset) 
-view(group2dataset)
+glimpse(group2dataset)  
+view(group2dataset)     
 
 # Statistical analyses 
 
-# T-test
-g2.t_testresult <- t.test(data = group2dataset, Error_counts ~ Instrument)
-summary(g2.t_testresult)
+# T-test: conducted for comparison of error counts between Illumina and PacBio sequencing
+g2.t_testresult <- t.test(data = group2dataset, Error_counts ~ Instrument)  # Perform a t-test
+summary(g2.t_testresult)  # Display the summary of the t-test results
 
-# ANOVA
-anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)
-summary(anovag2_result)
+# ANOVA: conducted to determine differences in error distribution along SARS-CoV-2 length
+anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)  # Perform ANOVA
+summary(anovag2_result)  # Display the summary of ANOVA results
 
-# Calculate mean data
+# Calculate, filter & store mean data for future use in ANOVA plot
 meang2_data <- group2dataset %>%
   group_by(Position, Variant) %>%
-  summarise(mean_Error_counts = mean(Error_counts))
+  summarise(mean_Error_counts = mean(Error_counts))  # Calculate mean values
 
 # Figures
 
-# Boxplot
-our_g2colors <- c("#dd1c77", "#3182bd")
+# Boxplot: compares the error counts in the spike gene of two SARS-CoV-2 variants
+our_g2colors <- c("#dd1c77", "#3182bd")  # Define custom colors
 
-boxplot_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
+boxplotg2_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
   geom_boxplot(outlier.shape = NA, fill = "white") +
   geom_jitter(shape = 20) +
   scale_color_manual(values = our_g2colors) +
@@ -56,10 +56,10 @@ boxplot_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, colo
     legend.text = element_text(face = "bold", size = 8),
     legend.position = "right",
     plot.title = element_text(hjust = 0.5)  
-  )
+  ) 
 
-# T-test plot
-t_test_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
+# T-test box plot: box plot that compares error counts Illumina and PacBio via t-test results
+tg2_test_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(shape = 21) +
   theme_bw() +
@@ -76,7 +76,7 @@ t_test_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill 
   ) +
   labs(title = "Mean Differences Between Sequencing Techniques")
 
-# ANOVA plot
+# ANOVA plot: column dot plot displaying the distribution of mean error counts along S-gene
 ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
   geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
   annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
@@ -94,4 +94,5 @@ ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Varia
     axis.title = element_text(color = "purple", face = "bold"), 
     legend.text = element_text(color = "purple", face = "bold"),  
     legend.title = element_text(color = "purple", face = "bold")  
-  )
+  )  
+
