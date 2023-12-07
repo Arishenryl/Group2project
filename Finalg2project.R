@@ -1,8 +1,8 @@
-# Group2project.R
+# Finalg2project.R
 # Authors: @Arishenryl, @ashevtsova, @ATRP116, @ellasterkaj, @saherah
 # Purpose: [Pending]
 # Date: Dec 6th, 2023
-# Version: 1 - Liann
+# Version: 1 - Antonio & Sidorela
 
 # Load required libraries - Alina
 install.packages("ggpubr")  # Install the ggpubr package
