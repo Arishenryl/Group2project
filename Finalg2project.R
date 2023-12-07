@@ -2,9 +2,9 @@
 # Authors: @Arishenryl, @ashevtsova, @ATRP116, @ellasterkaj, @saherah
 # Purpose: [Pending]
 # Date: Dec 6th, 2023
-# Version: 1
+# Version: 1 - Liann
 
-# Load required libraries
+# Load required libraries - Alina
 install.packages("ggpubr")  # Install the ggpubr package
 library(dplyr)               # Load the dplyr library for data manipulation
 library(ggplot2)             # Load the ggplot2 library for data visualization
@@ -14,31 +14,31 @@ library(rstatix)             # Load the rstatix library for statistical function
 library(stats)               # Load the stats library for basic statistical functions
 library(tidyverse)           # Load the tidyverse library for data manipulation and visualization
 
-# Read the dataset from a tsv file
-group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)  # group2dataset stores the dataset read for later use
+# Read the dataset from a tsv file - Alina
+group2dataset <- read_tsv("group2_dataset.tsv", show_col_types = FALSE)  # group2dataset stores the dataset read for statistical analysis & plot creation
 
-# Display a summary & View the dataset interactively
+# Display a summary & View the dataset interactively - Saherah
 glimpse(group2dataset)  
 view(group2dataset)     
 
-# Statistical analyses 
+# Statistical analyses - Saherah & Liann 
 
-# T-test: conducted for comparison of error counts between Illumina and PacBio sequencing
+# T-test: conducted for comparison of error counts between Illumina and PacBio sequencing - Saherah
 g2.t_testresult <- t.test(data = group2dataset, Error_counts ~ Instrument)  # Perform a t-test
 summary(g2.t_testresult)  # Display the summary of the t-test results
 
-# ANOVA: conducted to determine differences in error distribution along SARS-CoV-2 length
+# ANOVA: conducted to determine differences in error distribution along SARS-CoV-2 length - Saherah
 anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)  # Perform ANOVA
 summary(anovag2_result)  # Display the summary of ANOVA results
 
-# Calculate, filter & store mean data for future use in ANOVA plot
+# Calculate, filter & store mean data for future use in ANOVA plot - Liann
 meang2_data <- group2dataset %>%
   group_by(Position, Variant) %>%
   summarise(mean_Error_counts = mean(Error_counts))  # Calculate mean values
 
-# Figures
+# Figures - Liann & Alina
 
-# Boxplot: compares the error counts in the spike gene of two SARS-CoV-2 variants
+# Boxplot: compares the error counts in the spike gene of two SARS-CoV-2 variants - Alina
 our_g2colors <- c("#dd1c77", "#3182bd")  # Define custom colors
 
 boxplotg2_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, color = Variant)) +
@@ -58,7 +58,7 @@ boxplotg2_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, co
     plot.title = element_text(hjust = 0.5)  
   ) 
 
-# T-test box plot: box plot that compares error counts Illumina and PacBio via t-test results
+# T-test box plot: box plot that compares error counts Illumina and PacBio via t-test results - Liann
 tg2_test_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fill = Instrument)) +
   geom_boxplot(outlier.shape = NA) +
   geom_jitter(shape = 21) +
@@ -76,7 +76,7 @@ tg2_test_plot <- ggplot(group2dataset, aes(x = Instrument, y = Error_counts, fil
   ) +
   labs(title = "Mean Differences Between Sequencing Techniques")
 
-# ANOVA plot: column dot plot displaying the distribution of mean error counts along S-gene
+# ANOVA plot: column dot plot displaying the distribution of mean error counts along S-gene via ANOVA results - Liann
 ggplot(data = meang2_data, aes(x = Position, y = mean_Error_counts, fill = Variant)) +
   geom_dotplot(binaxis = "y", stackdir = "center", dotsize = 0.6) +  # Column dot plot
   annotate("text", x = Inf, y = -Inf, hjust = 1, vjust = 0, label = "Liann", color = "blue", alpha = 0.5) +
