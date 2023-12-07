@@ -1,8 +1,13 @@
 # Finalg2project.R
 # Authors: @Arishenryl, @ashevtsova, @ATRP116, @ellasterkaj, @saherah
-# Purpose: This project aims to conduct a comprehensive analysis of error counts in the Spike gene of SARS-CoV-2 for different sequencing instruments and variants. The statistical analyses include a t-test comparing Illumina and PacBio sequencing, an ANOVA examining differences in error distribution along the SARS-CoV-2 length, and the calculation of mean error counts for future use in the ANOVA plot.
+# Purpose: This script aims to conduct a comprehensive analysis of 
+# error counts in the Spike gene of SARS-CoV-2 for different sequencing instruments and variants. 
+# The statistical analyses include a t-test comparing Illumina and PacBio sequencing, 
+# an ANOVA examining differences in error distribution along the SARS-CoV-2 length, 
+# and the calculation of mean error counts for future use in the ANOVA plot.
 # Date: Dec 6th, 2023
-# Version: 1 - Antonio & Sidorela
+# Version: 1 
+# Script Documentation - Antonio & Sidorela
 
 # Load required libraries - Alina
 install.packages("ggpubr")  # Install the ggpubr package
