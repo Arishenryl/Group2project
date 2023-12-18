@@ -29,8 +29,8 @@ view(group2dataset)
 # Statistical analyses - Saherah
 
 # T-test: conducted for comparison of error counts between Illumina and PacBio sequencing - Saherah
-g2.t_testresult <- t.test(data = group2dataset, Error_counts ~ Instrument)  # Perform a t-test
-summary(g2.t_testresult)  # Display the summary of the t-test results
+> pairwise_t_test_result <- pairwise.t.test(group2dataset$Error_counts, group2dataset$Instrument, p.adjust.method = "bonferroni")
+> pairwise_t_test_result
 
 # ANOVA: conducted to determine differences in error distribution along SARS-CoV-2 length - Saherah
 anovag2_result <- aov(Error_counts ~ Position * Variant, data = group2dataset)  # Perform ANOVA
